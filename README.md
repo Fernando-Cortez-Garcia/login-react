@@ -1,43 +1,31 @@
-# React + TypeScript + Vite
+# Práctica de Login Corporativo en React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una práctica de autenticación de usuarios utilizando React, Tailwind CSS y React Router, conectado a una API externa real.
 
-Currently, two official plugins are available:
+## Características principales
+- Login corporativo moderno, responsivo y centrado en pantalla.
+- Conexión a una API externa real para validar credenciales.
+- Manejo de respuestas de la API: mensajes claros de error o éxito.
+- Almacenamiento de datos de usuario en localStorage tras login exitoso.
+- Rutas protegidas con React Router.
+- Uso de variables de entorno para la URL de la API.
+- Diseño profesional con Tailwind CSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ¿Cómo funciona?
+1. El usuario ingresa sus credenciales en el formulario de login.
+2. Se envían a la API externa definida en `.env` (`VITE_API_URL`).
+3. Si la API responde con datos válidos, se guarda el usuario y se redirige a la ruta protegida `/home`.
+4. Si hay error, se muestra un mensaje claro en pantalla.
 
-## Expanding the ESLint configuration
+## Configuración
+1. Clona el repositorio.
+2. Instala dependencias con `npm install`.
+3. Crea un archivo `.env` con la variable `VITE_API_URL` apuntando a la API.
+4. Ejecuta el proyecto con `npm run dev`.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Esta práctica es ideal para aprender integración de login real en React con buenas prácticas de UI y manejo de rutas protegidas.
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
