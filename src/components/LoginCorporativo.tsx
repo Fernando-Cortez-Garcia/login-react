@@ -8,27 +8,30 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Función que maneja el envío del formulario de login
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      // Configuración  API
+      // Preparo los datos para la API (usuario, contraseña y opción)
       const formdata = new FormData();
       formdata.append("usuario", username);
       formdata.append("contra", password);
       formdata.append("opcion", "2.2");
 
+      // Configuración del request para fetch
       const requestOptions = {
         method: "POST",
         body: formdata,
         redirect: "follow" as RequestRedirect
       };
 
+      // Llamo a la API externa usando la URL del .env
       const response = await fetch(import.meta.env.VITE_API_URL, requestOptions);
       const result = await response.text();
-      // Intentamos parsear la respuesta como JSON
+      // Intento parsear la respuesta como JSON
       let data;
       try {
         data = JSON.parse(result);
@@ -36,9 +39,10 @@ const Login: React.FC = () => {
         setError('Usuario o contraseña incorrectos');
         return;
       }
+      // Si la API responde con datos de usuario válidos
       if (Array.isArray(data) && data.length > 0 && data[0].idUser) {
         const userData = data[0];
-        // Login exitoso - guardamos los datos del usuario
+        // Login exitoso: guardo los datos del usuario en localStorage y redirijo
         localStorage.setItem('user', JSON.stringify({
           id: userData.idUser,
           nombre: userData.Nombre,
@@ -48,19 +52,22 @@ const Login: React.FC = () => {
         }));
         navigate('/home');
       } else if (typeof data === 'object' && data.fallo) {
+        // Si la API responde con error, muestro el mensaje
         setError(data.fallo);
       } else {
+        // Si la respuesta no es válida, muestro error genérico
         setError('Credenciales incorrectas');
       }
     } catch (error) {
+      // Si hay error de red o fetch
       console.error('Error de conexión:', error);
       setError('Error de conexión con el servidor. Verifica tu conexión a internet.');
     } finally {
       setLoading(false);
     }
   };
-  
 
+  // Render del formulario de login y mensajes
   return (
     <div className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-6 py-8">
         <div className="w-full max-w-lg">

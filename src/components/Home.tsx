@@ -9,10 +9,13 @@ interface User {
   empresa?: string;
 }
 
+// Página principal protegida (Dashboard)
 const Home: React.FC = () => {
+  // Estado para guardar los datos del usuario
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
+  // Al montar, obtengo el usuario de localStorage o redirijo a login si no hay
   useEffect(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -22,11 +25,13 @@ const Home: React.FC = () => {
     }
   }, [navigate]);
 
+  // Cerrar sesión: borro usuario y redirijo
   const handleLogout = () => {
     localStorage.removeItem('user');
     navigate('/login');
   };
 
+  // Si no hay usuario, muestro un loader
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -35,6 +40,7 @@ const Home: React.FC = () => {
     );
   }
 
+  // Render principal del dashboard
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
